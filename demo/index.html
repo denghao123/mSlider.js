@@ -1,0 +1,100 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width">
+    <title>侧边滑出弹层插件--mSlider.js</title>
+<style>
+
+.btn{
+    width: 20%;
+    height: 40px;
+    margin: 1%;
+    border: none;
+    background: #f60;
+    color: #fff;
+    border-radius: 8px;
+}
+
+.box{
+    width: 0;
+    height: 0;
+    overflow:hidden;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+    <h3>侧边滑出弹层插件--mSlider.js</h3>
+    <button id="btnLeft" class="btn">左</button>
+    <button id="btnRight" class="btn">右</button>
+    <button id="btnTop" class="btn">上</button>
+    <button id="btnBottom" class="btn">下</button>
+</div>
+
+<div class="box">
+    <div class="box-left">
+        <h3>左(自定义区)</h3>
+    </div>
+
+    <div class="box-right">
+        <h3>右(自定义区)</h3>
+    </div>
+
+    <div class="box-top">
+        <h3>上(自定义区)</h3>
+    </div>
+
+    <div class="box-bottom">
+        <h3>下(自定义区)</h3>
+    </div>
+</div>
+
+<script src="js/zepto.min.js"></script>
+<script src="js/mSlider.js"></script>
+<script>
+Zepto(function($) {
+    //生成实例
+    var _left = new mSlider({
+        dom: $(".box-left"),
+        direction: "left"
+    });
+
+    var _right = new mSlider({
+        dom: $(".box-right"),
+        direction: "right"
+    });
+
+    var _top = new mSlider({
+        dom: $(".box-top"),
+        direction: "top"
+    });
+
+    var _bottom = new mSlider({
+        dom: $(".box-bottom"),
+        direction: "bottom"
+    });
+
+    //弹出事件
+    $("#btnLeft").on('touchend', function(e) {
+        _left.open();
+    })
+
+    $("#btnRight").on('touchend', function(e) {
+        _right.open();
+    })
+
+    $("#btnTop").on('touchend', function(e) {
+        _top.open();
+    })
+
+    $("#btnBottom").on('touchend', function(e) {
+        _bottom.open();
+    })
+
+})
+</script>
+</body>
+</html>
