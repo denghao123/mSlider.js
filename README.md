@@ -6,7 +6,7 @@
 ```javascript
 var demo = new mSlider({dom: $("#xxx")})
 ```
-3.绑定方法:
+ 3.绑定方法:
 ```javascript
 demo.open()
 ```
@@ -37,4 +37,5 @@ demo.open()
 </tbody>
 </table>
 
-####演示地址: [demo](http://denghao.me/demo/2016/mslider.html) (请用手机观看)
+####演示地址: [demo](http://denghao.me/demo/2016/mslider.html) 
+仅支持手机上观看，如在pc上需要把所有touchend事件改为click
