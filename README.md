@@ -37,4 +37,4 @@ demo.open()
 </tbody>
 </table>
 
-####演示地址: [demo](http://denghao.me/demo/2016/mslider.html) 
+####演示地址: [demo](http://denghao.me/demo/2016/mslider.html) (请用手机观看)
