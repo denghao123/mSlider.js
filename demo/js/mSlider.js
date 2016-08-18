@@ -1,4 +1,4 @@
-/**
+﻿/**
  * @denghao.me
  * @2016-08-17 18:02:35
  * v1.0
@@ -89,7 +89,7 @@ mSlider.prototype = {
     $('.mSlider-mask' + _this.rnd).on('touchmove', function(event) {
       event.preventDefault();
     });
-    $('.mSlider-mask' + _this.rnd).on('touchmove touchend', function(event) {
+    $('.mSlider-mask' + _this.rnd).on('touchend', function(event) {
       event.preventDefault();
       _this.close();
     });
