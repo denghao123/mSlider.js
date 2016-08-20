@@ -5,10 +5,10 @@
  */
 function mSlider(options) {
   this.defaults = {
-    'direction': 'left', //弹层方向
-    'distance': '60%', //弹层宽度
-    'dom': {}, //容器节点
-    'time': 999999999 //自动关闭时间
+    'direction': 'left', //弹层方向:left|right|top|bottom
+    'distance': '60%', //弹层宽度:%|auto
+    'dom': {}, //容器节点: jquery节点
+    'time': "" //自动关闭时间，单位毫秒
   };
   this.opts = $.extend({}, this.defaults, options);
   this.rnd = parseInt(Math.random() * 10000);
@@ -108,15 +108,17 @@ mSlider.prototype = {
       })
     })
 
-    _this.timer=setTimeout(function() {
-      _this.close()
-    }, _this.opts.time);
+    if (_this.opts.time) {
+      _this.timer=setTimeout(function() {
+        _this.close()
+      }, _this.opts.time);
+    }
     
   },
 
   close: function() {
     var _this = this;
-    clearTimeout(_this.timer);
+    _this.timer&&clearTimeout(_this.timer);
     _this.opts.dom.css(_this.opts.direction, '-100%');
     $('.mSlider-mask' + _this.rnd).css({
       'opacity': '0',
