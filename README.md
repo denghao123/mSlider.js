@@ -27,7 +27,7 @@ demo.open()
 <tr>
 <td>distance</td>
 <td>弹层宽度%(默认"60%")</td>
-<td>如："50%"</td>
+<td>如："50%"，"auto"</td>
 </tr>
 <tr>
 <td>direction</td>

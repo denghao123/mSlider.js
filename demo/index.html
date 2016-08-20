@@ -28,70 +28,136 @@
 
 <div class="container">
     <h3>侧边滑出弹层插件--mSlider.js</h3>
+    <h4>方向控制：</h4>
     <button id="btnLeft" class="btn">左</button>
     <button id="btnRight" class="btn">右</button>
     <button id="btnTop" class="btn">上</button>
     <button id="btnBottom" class="btn">下</button>
+    <h4>关闭控制：</h4>
+    <button id="btnAutoClose" class="btn">自动</button>
+    <button id="btnManualClose" class="btn">手动</button>
+    <h4>连环调用：</h4>
+    <button id="btnParent" class="btn">第1层</button>
+
 </div>
 
 <div class="box">
     <div class="box-left">
-        <h3>左(自定义区)</h3>
+        <h3>your content... ...</h3>
     </div>
 
     <div class="box-right">
-        <h3>右(自定义区)</h3>
+        <h3>your content... ...</h3>
     </div>
 
     <div class="box-top">
-        <h3>上(自定义区)</h3>
+        <h3>your content... ...</h3>
     </div>
 
     <div class="box-bottom">
-        <h3>下(自定义区)</h3>
+        <h3>your content... ...</h3>
     </div>
+
+    <div class="box-selfclose">
+        <h3>1秒自动关闭！</h3>
+    </div>
+
+    <div class="box-manualclose">
+        <h3>点击右侧进行 <button class="btn" id="btnClose">关闭</button></h3>
+    </div>
+
+    <div class="box-parent">
+        <h3>我是第1层 <button class="btn" id="btnChild">调用第2层</button></h3>
+    </div>
+
+    <div class="box-child">
+        <h3>我是第2层</h3>
+    </div>
+
 </div>
 
 <script src="js/zepto.min.js"></script>
 <script src="js/mSlider.js"></script>
 <script>
 Zepto(function($) {
-    //生成实例
+    //方向控制
+    //左
     var _left = new mSlider({
         dom: $(".box-left"),
         direction: "left"
     });
-
+    $("#btnLeft").on('touchend click', function(e) {
+        _left.open();
+    })
+    //右
     var _right = new mSlider({
         dom: $(".box-right"),
         direction: "right"
     });
-
-    var _top = new mSlider({
-        dom: $(".box-top"),
-        direction: "top"
-    });
-
-    var _bottom = new mSlider({
-        dom: $(".box-bottom"),
-        direction: "bottom"
-    });
-
-    //弹出事件
-    $("#btnLeft").on('touchend', function(e) {
-        _left.open();
-    })
-
-    $("#btnRight").on('touchend', function(e) {
+    $("#btnRight").on('touchend click', function(e) {
         _right.open();
     })
 
-    $("#btnTop").on('touchend', function(e) {
+    //上
+    var _top = new mSlider({
+        dom: $(".box-top"),
+        direction: "top"
+    })
+    $("#btnTop").on('touchend click', function(e) {
         _top.open();
     })
-
-    $("#btnBottom").on('touchend', function(e) {
+    //下
+    var _bottom = new mSlider({
+        dom: $(".box-bottom"),
+        direction: "bottom"
+    })
+    $("#btnBottom").on('touchend click', function(e) {
         _bottom.open();
+    })
+
+    //关闭控制
+    //自动
+    var _autoclose = new mSlider({
+        dom: $(".box-selfclose"),
+        direction: "top",
+        distance: "10%",
+        time: "1000",
+    })
+    $("#btnAutoClose").on('touchend click', function(e) {
+        _autoclose.open();
+    })
+
+    //手动
+    var _manualclose = new mSlider({
+        dom: $(".box-manualclose"),
+        direction: "top",
+        distance: "auto"
+    })
+    $("#btnManualClose").on('touchend click', function(e) {
+        _manualclose.open();
+    });
+
+    $("#btnClose").on('touchend click', function(e) {
+        _manualclose.close();
+    });
+
+    //连环调用
+    var _parent = new mSlider({
+        dom: $(".box-parent"),
+        direction: "top",
+        distance: "20%"
+    })
+    var _child = new mSlider({
+        dom: $(".box-child"),
+        direction: "bottom"
+    })
+    $("#btnParent").on('touchend click', function(e) {
+        _parent.open();
+    })
+
+    $("#btnChild").on('touchend click', function(e) {
+        _parent.close();
+        _child.open();
     })
 
 })
