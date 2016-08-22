@@ -1,6 +1,6 @@
 ﻿/**
  * @denghao.me
- * @2016-08-20
+ * @2016-08-22
  * v1.0
  */
 function mSlider(options) {
@@ -18,57 +18,54 @@ function mSlider(options) {
 mSlider.prototype = {
   init: function() {
     var _this = this;
-    $('body').append("<div class='mSlider-mask"+ _this.rnd +"'></div>");
+    $('body').append("<div class='mSlider-mask" + _this.rnd + "'></div>");
     //弹层方向
     switch (_this.opts.direction) {
       case 'top':
-        _this.top = '-100%';
-        _this.bottom = 'no';
+        _this.top = '0';
         _this.left = '0';
-        _this.right = 'no';
         _this.width = '100%';
         _this.height = _this.opts.distance;
+        _this.translate = '0,-100%,0';
         break;
       case 'bottom':
-        _this.top = 'no';
-        _this.bottom = '-100%';
+        _this.top = _this.minusPer('100%', _this.opts.distance);
         _this.left = '0';
-        _this.right = 'no';
         _this.width = '100%';
         _this.height = _this.opts.distance;
+        _this.translate = '0,100%,0';
         break;
       case 'right':
         _this.top = '0';
-        _this.bottom = 'no';
-        _this.left = 'no';
-        _this.right = '-100%';
+        _this.left = _this.minusPer('100%', _this.opts.distance);
         _this.width = _this.opts.distance;
         _this.height = '100%';
+        _this.translate = '100%,0,0';
         break;
       default:
         //默认 left
         _this.top = '0';
-        _this.bottom = 'no';
-        _this.left = '-100%';
-        _this.right = 'no';
+        _this.left = '0';
         _this.width = _this.opts.distance;
         _this.height = '100%';
+        _this.translate = '-100%,0,0';
     }
+
     //容器样式
     _this.opts.dom.css({
       'position': 'fixed',
       'top': _this.top,
-      'bottom': _this.bottom,
       'left': _this.left,
-      'right': _this.right,
       'width': _this.width,
       'height': _this.height,
       'overflow-y': 'auto',
       'background-color': '#fff',
       'z-index': '99',
-      '-webkit-transition': 'all .3s ease-out',
       'transition': 'all .3s ease-out',
-      '-webkit-backface-visibility': 'hidden'
+      '-webkit-transition': 'all .3s ease-out',
+      '-webkit-backface-visibility': 'hidden',
+      'transform': 'translate3d(' + _this.translate + ')',
+      '-webkit-transform': 'translate3d(' + _this.translate + ')'
     });
 
     //遮罩处理
@@ -82,8 +79,8 @@ mSlider.prototype = {
       'opacity': '0',
       'z-index': '98',
       'pointer-events': 'none',
-      '-webkit-transition': 'all .3s ease-out',
       'transition': 'all .3s ease-out',
+      '-webkit-transition': 'all .3s ease-out',
       '-webkit-backface-visibility': 'hidden'
     })
 
@@ -97,11 +94,23 @@ mSlider.prototype = {
 
   },
 
+  // 百分比%相减
+  minusPer: function(a, b) {
+    var n1 = parseInt(a),
+      n2 = parseInt(b),
+      r = n1 - n2;
+    return (isNaN(r) || r <= 0) ? '0%' : (r + '%')
+  },
+
   open: function() {
     var _this = this;
-
     setTimeout(function() {
-      _this.opts.dom.css(_this.opts.direction, 0);
+      _this.opts.dom.css({
+        'opacity': '1',
+        '-webkit-transform': 'translate3d(0,0,0)',
+        'transform': 'translate3d(0,0,0)',
+      });
+
       $('.mSlider-mask' + _this.rnd).css({
         'opacity': '0.6',
         'pointer-events': 'auto'
@@ -109,21 +118,23 @@ mSlider.prototype = {
     })
 
     if (_this.opts.time) {
-      _this.timer=setTimeout(function() {
+      _this.timer = setTimeout(function() {
         _this.close()
       }, _this.opts.time);
     }
-    
   },
 
   close: function() {
     var _this = this;
-    _this.timer&&clearTimeout(_this.timer);
-    _this.opts.dom.css(_this.opts.direction, '-100%');
+    _this.timer && clearTimeout(_this.timer);
+    _this.opts.dom.css({
+      '-webkit-transform': 'translate3d(' + _this.translate + ')',
+      'transform': 'translate3d(' + _this.translate + ')'
+    });
     $('.mSlider-mask' + _this.rnd).css({
       'opacity': '0',
       'pointer-events': 'none'
     })
-
   }
+
 }

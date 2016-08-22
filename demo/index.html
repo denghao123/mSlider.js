@@ -6,7 +6,6 @@
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width">
     <title>侧边滑出弹层插件--mSlider.js</title>
 <style>
-
 .btn{
     width: 20%;
     height: 40px;
@@ -17,10 +16,8 @@
     border-radius: 8px;
 }
 
-.box{
-    width: 0;
-    height: 0;
-    overflow:hidden;
+.box>div{
+    opacity: 0;
 }
 </style>
 </head>
@@ -42,18 +39,19 @@
 </div>
 
 <div class="box">
-    <div class="box-left">
+     <div class="box-left">
         <h3>your content... ...</h3>
     </div>
 
     <div class="box-right">
         <h3>your content... ...</h3>
-    </div>
+    </div> 
 
     <div class="box-top">
         <h3>your content... ...</h3>
     </div>
 
+ 
     <div class="box-bottom">
         <h3>your content... ...</h3>
     </div>
@@ -73,7 +71,7 @@
     <div class="box-child">
         <h3>我是第2层</h3>
     </div>
-
+ 
 </div>
 
 <script src="js/zepto.min.js"></script>
@@ -86,7 +84,7 @@ Zepto(function($) {
         dom: $(".box-left"),
         direction: "left"
     });
-    $("#btnLeft").on('touchend click', function(e) {
+    $("#btnLeft").on('click', function(e) {
         _left.open();
     })
     //右
@@ -94,7 +92,7 @@ Zepto(function($) {
         dom: $(".box-right"),
         direction: "right"
     });
-    $("#btnRight").on('touchend click', function(e) {
+    $("#btnRight").on('click', function(e) {
         _right.open();
     })
 
@@ -103,7 +101,7 @@ Zepto(function($) {
         dom: $(".box-top"),
         direction: "top"
     })
-    $("#btnTop").on('touchend click', function(e) {
+    $("#btnTop").on('click', function(e) {
         _top.open();
     })
     //下
@@ -111,7 +109,7 @@ Zepto(function($) {
         dom: $(".box-bottom"),
         direction: "bottom"
     })
-    $("#btnBottom").on('touchend click', function(e) {
+    $("#btnBottom").on('click', function(e) {
         _bottom.open();
     })
 
@@ -121,9 +119,9 @@ Zepto(function($) {
         dom: $(".box-selfclose"),
         direction: "top",
         distance: "10%",
-        time: "1000",
+        time: "1000"
     })
-    $("#btnAutoClose").on('touchend click', function(e) {
+    $("#btnAutoClose").on('click', function(e) {
         _autoclose.open();
     })
 
@@ -133,11 +131,11 @@ Zepto(function($) {
         direction: "top",
         distance: "auto"
     })
-    $("#btnManualClose").on('touchend click', function(e) {
+    $("#btnManualClose").on('click', function(e) {
         _manualclose.open();
     });
 
-    $("#btnClose").on('touchend click', function(e) {
+    $("#btnClose").on('click', function(e) {
         _manualclose.close();
     });
 
@@ -145,17 +143,17 @@ Zepto(function($) {
     var _parent = new mSlider({
         dom: $(".box-parent"),
         direction: "top",
-        distance: "20%"
+        distance:"auto"
     })
     var _child = new mSlider({
         dom: $(".box-child"),
         direction: "bottom"
     })
-    $("#btnParent").on('touchend click', function(e) {
+    $("#btnParent").on('click', function(e) {
         _parent.open();
     })
 
-    $("#btnChild").on('touchend click', function(e) {
+    $("#btnChild").on('click', function(e) {
         _parent.close();
         _child.open();
     })
