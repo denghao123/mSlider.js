@@ -1,15 +1,15 @@
 # 侧滑弹层插件--mSlider.js
 
 ####用法：
-1. 引入jquery(或zepto)库和mSlide.js;
+1. 引入mSlide.js;
 2. new一个实例：
-```javascript
-var demo = new mSlider({dom: $("#xxx")})
-```
- 3.绑定方法:
-```javascript
-demo.open()
-```
+
+    var demo = new mSlider({dom: "#xxxx"})
+
+3. 绑定方法:
+
+    demo.open()
+
 
 ####属性：
 <table>
@@ -22,7 +22,7 @@ demo.open()
 <tr>
 <td>dom</td>
 <td>容器节点(必填)</td>
-<td>如：$("#xxx") 、 $(".xxx")</td>
+<td>如："#xxx" 、 ".xxx"</td>
 </tr>
 <tr>
 <td>distance</td>
