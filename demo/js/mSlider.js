@@ -1,140 +1,161 @@
 ﻿/**
  * @denghao.me
- * @2016-08-22
- * v1.0
+ * 2016-01-22
+ * v1.1
  */
-function mSlider(options) {
-  this.defaults = {
-    'direction': 'left', //弹层方向:left|right|top|bottom
-    'distance': '60%', //弹层宽度:%|auto
-    'dom': {}, //容器节点: jquery节点
-    'time': "" //自动关闭时间，单位毫秒
-  };
-  this.opts = $.extend({}, this.defaults, options);
-  this.rnd = parseInt(Math.random() * 10000);
-  this.init();
-}
-
-mSlider.prototype = {
-  init: function() {
-    var _this = this;
-    $('body').append("<div class='mSlider-mask" + _this.rnd + "'></div>");
-    //弹层方向
-    switch (_this.opts.direction) {
-      case 'top':
-        _this.top = '0';
-        _this.left = '0';
-        _this.width = '100%';
-        _this.height = _this.opts.distance;
-        _this.translate = '0,-100%,0';
-        break;
-      case 'bottom':
-        _this.top = _this.minusPer('100%', _this.opts.distance);
-        _this.left = '0';
-        _this.width = '100%';
-        _this.height = _this.opts.distance;
-        _this.translate = '0,100%,0';
-        break;
-      case 'right':
-        _this.top = '0';
-        _this.left = _this.minusPer('100%', _this.opts.distance);
-        _this.width = _this.opts.distance;
-        _this.height = '100%';
-        _this.translate = '100%,0,0';
-        break;
-      default:
-        //默认 left
-        _this.top = '0';
-        _this.left = '0';
-        _this.width = _this.opts.distance;
-        _this.height = '100%';
-        _this.translate = '-100%,0,0';
-    }
-
-    //容器样式
-    _this.opts.dom.css({
-      'position': 'fixed',
-      'top': _this.top,
-      'left': _this.left,
-      'width': _this.width,
-      'height': _this.height,
-      'overflow-y': 'auto',
-      'background-color': '#fff',
-      'z-index': '99',
-      'transition': 'all .3s ease-out',
-      '-webkit-transition': 'all .3s ease-out',
-      '-webkit-backface-visibility': 'hidden',
-      'transform': 'translate3d(' + _this.translate + ')',
-      '-webkit-transform': 'translate3d(' + _this.translate + ')'
-    });
-
-    //遮罩处理
-    $('.mSlider-mask' + _this.rnd).css({
-      'position': 'fixed',
-      'top': '0',
-      'left': '0',
-      'width': '100%',
-      'height': '100%',
-      'background-color': 'black',
-      'opacity': '0',
-      'z-index': '98',
-      'pointer-events': 'none',
-      'transition': 'all .3s ease-out',
-      '-webkit-transition': 'all .3s ease-out',
-      '-webkit-backface-visibility': 'hidden'
-    })
-
-    $('.mSlider-mask' + _this.rnd).on('touchmove', function(event) {
-      event.preventDefault();
-    });
-    $('.mSlider-mask' + _this.rnd).on('touchend click', function(event) {
-      event.preventDefault();
-      _this.close();
-    })
-
-  },
-
-  // 百分比%相减
-  minusPer: function(a, b) {
-    var n1 = parseInt(a),
-      n2 = parseInt(b),
-      r = n1 - n2;
-    return (isNaN(r) || r <= 0) ? '0%' : (r + '%')
-  },
-
-  open: function() {
-    var _this = this;
-    setTimeout(function() {
-      _this.opts.dom.css({
-        'opacity': '1',
-        '-webkit-transform': 'translate3d(0,0,0)',
-        'transform': 'translate3d(0,0,0)',
-      });
-
-      $('.mSlider-mask' + _this.rnd).css({
-        'opacity': '0.6',
-        'pointer-events': 'auto'
-      })
-    })
-
-    if (_this.opts.time) {
-      _this.timer = setTimeout(function() {
-        _this.close()
-      }, _this.opts.time);
-    }
-  },
-
-  close: function() {
-    var _this = this;
-    _this.timer && clearTimeout(_this.timer);
-    _this.opts.dom.css({
-      '-webkit-transform': 'translate3d(' + _this.translate + ')',
-      'transform': 'translate3d(' + _this.translate + ')'
-    });
-    $('.mSlider-mask' + _this.rnd).css({
-      'opacity': '0',
-      'pointer-events': 'none'
-    })
+;
+(function(window, undefined) {
+  function mSlider(options) {
+    this.opts = {
+      'direction': options.direction || 'left', //弹层方向:left|right|top|bottom
+      'distance': options.distance || '60%', //弹层宽度:%|auto
+      'dom': this.Q(options.dom), //容器dom
+      'time': options.time || "" //自动关闭时间，单位毫秒
+    };
+    this.rnd = parseInt(Math.random() * 1000);
+    this.box = this.opts.dom[0];
+    this.mask = '';
+    this.init();
   }
 
-}
+  mSlider.prototype = {
+    Q: function(dom) {
+      return document.querySelectorAll(dom);
+    },
+    addEvent: function(obj, ev, fn) {
+      if (obj.attachEvent) {
+        obj.attachEvent("on" + ev, fn);
+      } else {
+        obj.addEventListener(ev, fn, false);
+      }
+    },
+
+    /*
+     * 初始化
+     */
+    init: function() {
+      var self = this;
+      // 条件判断
+      if (!self.box) {
+        alert('未正确绑定弹窗容器');
+        return;
+      }
+      // 生成遮罩
+      var m = document.createElement('div');
+      m.setAttribute('class', 'mSlider-mask' + self.rnd);
+      self.Q('body')[0].appendChild(m);
+      self.mask = this.Q('.mSlider-mask' + self.rnd)[0];
+      //弹层方向
+      switch (self.opts.direction) {
+        case 'top':
+          self.top = '0';
+          self.left = '0';
+          self.width = '100%';
+          self.height = self.opts.distance;
+          self.translate = '0,-100%,0';
+          break;
+        case 'bottom':
+          self.top = self.minusPer('100%', self.opts.distance);
+          self.left = '0';
+          self.width = '100%';
+          self.height = self.opts.distance;
+          self.translate = '0,100%,0';
+          break;
+        case 'right':
+          self.top = '0';
+          self.left = self.minusPer('100%', self.opts.distance);
+          self.width = self.opts.distance;
+          self.height = document.documentElement.clientHeight + 'px';
+          self.translate = '100%,0,0';
+          break;
+        default:
+          self.top = '0';
+          self.left = '0';
+          self.width = self.opts.distance;
+          self.height = document.documentElement.clientHeight + 'px';
+          self.translate = '-100%,0,0';
+      }
+
+      //容器样式
+      self.box.style.position = 'fixed';
+      self.box.style.top = self.top;
+      self.box.style.left = self.left;
+      self.box.style.width = self.width;
+      self.box.style.height = self.height;
+      self.box.style.zIndex = 99;
+      self.box.style.overflowY = 'auto';
+      self.box.style.backgroundColor = "white";
+      self.box.style.webkitTransition = "all .3s ease-out";
+      self.box.style.transition = "all .3s ease-out";
+      self.box.style.webkitTransform = 'translate3d(' + self.translate + ')';
+      self.box.style.transform = 'translate3d(' + self.translate + ')';
+
+      //遮罩处理
+      self.mask.style.position = 'fixed';
+      self.mask.style.top = 0;
+      self.mask.style.left = 0;
+      self.mask.style.width = '100%';
+      self.mask.style.height = '100%';
+      self.mask.style.opacity = '0';
+      self.mask.style.backgroundColor = 'black';
+      self.mask.style.zIndex = '98';
+      self.mask.style.pointerEvents = 'none';
+      self.mask.style.webkitTransition = "all .3s ease-out";
+      self.mask.style.transition = "all .3s ease-out";
+      self.mask.style.webkitBackfaceVisibility = 'hidden';
+
+      self.addEvent(self.mask, "touchmove", function(e) {
+        e.preventDefault();
+      })
+      self.addEvent(self.mask, "click", function(e) {
+        e.preventDefault();
+        self.close();
+      })
+
+    },
+
+    /*
+     *  %相减
+     */
+    minusPer: function(a, b) {
+      var n1 = parseInt(a),
+        n2 = parseInt(b),
+        r = n1 - n2;
+      return (isNaN(r) || r <= 0) ? '0%' : (r + '%')
+    },
+
+    /*
+     * 打开弹窗
+     */
+    open: function() {
+      var self = this;
+
+      setTimeout(function() {
+        self.box.style.opacity = 1;
+        self.box.style.transform = 'translate3d(0,0,0)';
+        self.box.style.webkitTransform = 'translate3d(0,0,0)';
+        self.mask.style.opacity = 0.6;
+        self.mask.style.pointerEvents = 'auto';
+      })
+
+      if (self.opts.time) {
+        self.timer = setTimeout(function() {
+          self.close()
+        }, self.opts.time);
+      }
+    },
+
+    /*
+     * 关闭弹窗
+     */
+    close: function() {
+      var self = this;
+      self.timer && clearTimeout(self.timer);
+      self.box.style.webkitTransform = 'translate3d(' + self.translate + ')';
+      self.box.style.transform = 'translate3d(' + self.translate + ')';
+      self.mask.style.opacity = 0;
+      self.mask.style.pointerEvents = 'none';
+    }
+  }
+  window.mSlider = mSlider;
+})(window)
