@@ -2,16 +2,19 @@
 
 ####用法：
 1. 引入mSlider.js (注：无需引入jQuery等库)
-       <script src="mSlider.js"></script>
+```javascript
+<script src="mSlider.js"></script>
+```
 
 2. new一个实例：
-
-    var demo = new mSlider({dom: "#xxxx"})
+```javascript
+var demo = new mSlider({dom: "#xxxx"})
+```
 
 3. 绑定方法:
-
-    demo.open()
-
+```javascript
+demo.open()
+```
 
 ####属性：
 <table>
