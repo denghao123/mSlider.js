@@ -1,7 +1,7 @@
 # 侧滑弹层插件--mSlider.js
 
 ####用法：
-1. 引入mSlide.js;
+1. 引入mSlider.js;
 2. new一个实例：
 
     var demo = new mSlider({dom: "#xxxx"})
