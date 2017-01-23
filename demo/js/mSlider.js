@@ -19,6 +19,7 @@
   }
 
   mSlider.prototype = {
+    
     Q: function(dom) {
       return document.querySelectorAll(dom);
     },

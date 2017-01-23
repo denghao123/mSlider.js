@@ -72,12 +72,15 @@ h4{
 <script src="js/mSlider.js"></script>
 <script>
 window.onload = function() {
+
     //移动端使用touchend
     var event = navigator.userAgent.match(/(iPhone|iPod|Android|ios)/i) ? 'touchend' : 'click';
+
     // 选择器
     var Q = function(id) {
         return document.getElementById(id)
     };
+    
     //方向控制
     //左
     var _left = new mSlider({
