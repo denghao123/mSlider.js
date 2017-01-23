@@ -1,7 +1,7 @@
 # 侧滑弹层插件--mSlider.js
 
 ####用法：
-1. 引入mSlider.js (注：无需引入jQuery等库)
+1. 引入mSlider.js  (注：无需引入jQuery库)
 ```javascript
 <script src="mSlider.js"></script>
 ```
