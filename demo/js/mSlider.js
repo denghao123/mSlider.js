@@ -22,6 +22,9 @@
     Q: function(dom) {
       return document.querySelectorAll(dom);
     },
+    isMobile:function(){
+      return navigator.userAgent.match(/(iPhone|iPod|Android|ios)/i)?true:false;
+    },
     addEvent: function(obj, ev, fn) {
       if (obj.attachEvent) {
         obj.attachEvent("on" + ev, fn);
@@ -107,7 +110,7 @@
       self.addEvent(self.mask, "touchmove", function(e) {
         e.preventDefault();
       })
-      self.addEvent(self.mask, "click", function(e) {
+      self.addEvent(self.mask, (self.isMobile()?'touchend':'click'), function(e) {
         e.preventDefault();
         self.close();
       })

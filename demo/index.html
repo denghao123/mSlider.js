@@ -72,18 +72,19 @@ h4{
 <script src="js/mSlider.js"></script>
 <script>
 window.onload = function() {
-
+    //移动端使用touchend
+    var event = navigator.userAgent.match(/(iPhone|iPod|Android|ios)/i) ? 'touchend' : 'click';
     // 选择器
-    function Q(id) {
-        return document.getElementById(id);
-    }
+    var Q = function(id) {
+        return document.getElementById(id)
+    };
     //方向控制
     //左
     var _left = new mSlider({
         dom: ".layer-left",
     });
 
-    Q('btnLeft').addEventListener("click", function() {
+    Q('btnLeft').addEventListener(event, function() {
         _left.open();
     })
 
@@ -93,7 +94,7 @@ window.onload = function() {
         direction: "right"
     });
 
-    Q("btnRight").addEventListener('click', function(e) {
+    Q("btnRight").addEventListener(event, function(e) {
         _right.open();
     })
 
@@ -102,7 +103,7 @@ window.onload = function() {
         dom: ".layer-top",
         direction: "top"
     })
-    Q("btnTop").addEventListener('click', function(e) {
+    Q("btnTop").addEventListener(event, function(e) {
             _top.open();
         })
         //下
@@ -110,7 +111,7 @@ window.onload = function() {
         dom: ".layer-bottom",
         direction: "bottom"
     })
-    Q("btnBottom").addEventListener('click', function(e) {
+    Q("btnBottom").addEventListener(event, function(e) {
         _bottom.open();
     })
 
@@ -122,7 +123,7 @@ window.onload = function() {
         distance: "10%",
         time: "1000"
     })
-    Q("btnAutoClose").addEventListener('click', function(e) {
+    Q("btnAutoClose").addEventListener(event, function(e) {
         _autoclose.open();
     })
 
@@ -132,11 +133,11 @@ window.onload = function() {
         direction: "top",
         distance: "auto"
     })
-    Q("btnManualClose").addEventListener('click', function(e) {
+    Q("btnManualClose").addEventListener(event, function(e) {
         _manualclose.open();
     });
 
-    Q("btnClose").addEventListener('click', function(e) {
+    Q("btnClose").addEventListener(event, function(e) {
         _manualclose.close();
     });
 
@@ -150,11 +151,11 @@ window.onload = function() {
         dom: ".layer-child",
         direction: "bottom"
     })
-    Q("btnParent").addEventListener('click', function(e) {
+    Q("btnParent").addEventListener(event, function(e) {
         _parent.open();
     })
 
-    Q("btnChild").addEventListener('click', function(e) {
+    Q("btnChild").addEventListener(event, function(e) {
         _parent.close();
         _child.open();
     })
