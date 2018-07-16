@@ -8,7 +8,7 @@
   function mSlider(options) {
     this.opts = {
       'direction': options.direction || 'left', //弹层方向:left|right|top|bottom
-      'distance': options.distance || '60%', //弹层宽度:%|auto
+      'distance': options.distance || '60%', //弹层宽度:px|%|auto
       'dom': this.Q(options.dom), //容器dom
       'time': options.time || "", //自动关闭时间，单位毫秒
       'maskClose': (options.maskClose + '').toString() !== 'false' ? true : false, //点击遮罩关闭弹层

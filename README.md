@@ -30,8 +30,8 @@ demo.open()
 </tr>
 <tr>
 <td>distance</td>
-<td>弹层宽度%(选填，默认"60%")</td>
-<td>单位%，如："50%"，"auto"</td>
+<td>弹层宽度(选填，默认"60%")</td>
+<td>支持：px|%|auto</td>
 </tr>
 <tr>
 <td>time</td>
