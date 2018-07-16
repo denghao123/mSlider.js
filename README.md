@@ -1,6 +1,6 @@
 # 侧滑弹层插件--mSlider.js
 
-####用法：
+#### 用法：
 1. 引入mSlider.js  (注：无需引入jQuery库)
 ```javascript
 <script src="mSlider.js"></script>
@@ -16,7 +16,7 @@ var demo = new mSlider({dom: "#xxxx"})
 demo.open()
 ```
 
-####属性：
+#### 参数：
 <table>
 <tbody>
 <tr>
@@ -44,10 +44,20 @@ demo.open()
 <td>弹出方向(选填，默认"left")</td>
 <td>"left":从左弹出，"right":从右弹出，"top":从上弹出，"bottom":从下弹出</td>
 </tr>
+<tr>
+<td>maskClose</td>
+<td>点击遮罩关闭弹层(选填，默认true)</td>
+<td></td>
+</tr>
+<tr>
+<td>callback</td>
+<td>关闭时回调函数</td>
+<td></td>
+</tr>
 </tbody>
 </table>
 
-####方法：
+#### 方法：
 <table>
 <tbody>
 <tr>
