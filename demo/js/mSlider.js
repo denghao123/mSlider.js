@@ -64,6 +64,7 @@
       _this.inner = _this.Q('.ms-' + _this.rnd + ' .mSlider-inner')[0];
       _this.mask = _this.Q('.ms-' + _this.rnd + ' .mSlider-mask')[0];
       // 嵌入内容
+      _this.dom.style.display="block";
       _this.inner.appendChild(_this.dom);
 
       //弹层方向
