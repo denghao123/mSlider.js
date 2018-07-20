@@ -39,6 +39,11 @@ demo.open()
 <td>单位毫秒，如"2000"</td>
 </tr>
 <tr>
+<td>zIndex</td>
+<td>层级(选填,默认100)</td>
+<td></td>
+</tr>
+<tr>
 <td>direction</td>
 <td>弹出方向(选填，默认"left")</td>
 <td>"left":从左弹出，"right":从右弹出，"top":从上弹出，"bottom":从下弹出</td>

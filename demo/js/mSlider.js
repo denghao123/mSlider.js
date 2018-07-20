@@ -10,6 +10,7 @@
       'direction': options.direction || 'left', //弹层方向:left|right|top|bottom
       'distance': options.distance || '60%', //弹层宽度:px|%|auto
       'dom': this.Q(options.dom), //容器dom
+      'zIndex': options.zIndex || 100,
       'time': options.time || "", //自动关闭时间，单位毫秒
       'maskClose': (options.maskClose + '').toString() !== 'false' ? true : false, //点击遮罩关闭弹层
       "callback": options.callback || ''
@@ -64,7 +65,7 @@
       _this.inner = _this.Q('.ms-' + _this.rnd + ' .mSlider-inner')[0];
       _this.mask = _this.Q('.ms-' + _this.rnd + ' .mSlider-mask')[0];
       // 嵌入内容
-      _this.dom.style.display="block";
+      _this.dom.style.display = "block";
       _this.inner.appendChild(_this.dom);
 
       //弹层方向
@@ -106,7 +107,7 @@
       _this.wrap.style.left = '0';
       _this.wrap.style.width = '100%';
       _this.wrap.style.height = '100%';
-      _this.wrap.style.zIndex = 99;
+      _this.wrap.style.zIndex = _this.opts.zIndex;
 
       // 内容区样式
       _this.inner.style.position = "absolute";
@@ -120,14 +121,14 @@
       _this.inner.style.transform = 'translate3d(' + _this.translate + ')';
       _this.inner.style.webkitTransition = "all .2s ease-out";
       _this.inner.style.transition = "all .2s ease-out";
-      _this.inner.style.zIndex = 100;
+      _this.inner.style.zIndex = _this.opts.zIndex + 1;
 
       //遮罩处理
       _this.mask.style.width = '100%';
       _this.mask.style.height = '100%';
       _this.mask.style.opacity = '0';
       _this.mask.style.backgroundColor = 'black';
-      _this.mask.style.zIndex = '98';
+      _this.mask.style.zIndex = _this.opts.zIndex - 1;
       _this.mask.style.webkitTransition = "all .2s ease-out";
       _this.mask.style.transition = "all .2s ease-out";
       _this.mask.style.webkitBackfaceVisibility = 'hidden';
