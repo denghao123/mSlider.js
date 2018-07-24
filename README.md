@@ -54,7 +54,12 @@ demo.open()
 <td></td>
 </tr>
 <tr>
-<td>callback</td>
+<td>onOpen()</td>
+<td>打开时回调函数</td>
+<td></td>
+</tr>
+<tr>
+<td>onClose()</td>
 <td>关闭时回调函数</td>
 <td></td>
 </tr>

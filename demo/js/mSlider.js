@@ -13,7 +13,8 @@
       'zIndex': options.zIndex || 100,
       'time': options.time || "", //自动关闭时间，单位毫秒
       'maskClose': (options.maskClose + '').toString() !== 'false' ? true : false, //点击遮罩关闭弹层
-      "callback": options.callback || ''
+      "onOpen": options.onOpen || '',
+      "onClose": options.onClose || ''
     };
     this.rnd = this.rnd();
     this.dom = this.opts.dom[0];
@@ -65,7 +66,6 @@
       _this.inner = _this.Q('.ms-' + _this.rnd + ' .mSlider-inner')[0];
       _this.mask = _this.Q('.ms-' + _this.rnd + ' .mSlider-mask')[0];
       // 嵌入内容
-      _this.dom.style.display = "block";
       _this.inner.appendChild(_this.dom);
 
       //弹层方向
@@ -146,6 +146,7 @@
         _this.inner.style.transform = 'translate3d(0,0,0)';
         _this.inner.style.webkitTransform = 'translate3d(0,0,0)';
         _this.mask.style.opacity = 0.5;
+        _this.opts.onOpen && _this.opts.onOpen();
       }, 30)
 
       if (_this.opts.time) {
@@ -167,7 +168,7 @@
       setTimeout(function () {
         _this.wrap.style.display = 'none';
         _this.timer = null;
-        _this.opts.callback && _this.opts.callback();
+        _this.opts.onClose && _this.opts.onClose();
       }, 300);
     },
     // 事件
