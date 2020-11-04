@@ -41,11 +41,19 @@
     rnd: function () {
       return Math.random().toString(36).substr(2, 6);
     },
+    getClientHeight: function () {
+      var ch = document.body.clientHeight;
+      if (document.body.clientHeight && document.documentElement.clientHeight) {
+        ch = Math.max(document.body.clientHeight, document.documentElement.clientHeight);
+      }
+      return ch;
+    },
     /*
      * 初始化
      */
     init: function () {
       var _this = this;
+      var clientHeight = this.getClientHeight();
       // 条件判断
       if (!_this.dom) {
         console.log('未正确绑定弹窗容器');
@@ -88,7 +96,7 @@
           _this.top = '0';
           _this.right = '0';
           _this.width = _this.opts.distance;
-          _this.height = document.documentElement.clientHeight + 'px';
+          _this.height = clientHeight + 'px';
           _this.translate = '100%,0,0';
           break;
         default:
@@ -96,7 +104,7 @@
           _this.top = '0';
           _this.left = '0';
           _this.width = _this.opts.distance;
-          _this.height = document.documentElement.clientHeight + 'px';
+          _this.height = clientHeight + 'px';
           _this.translate = '-100%,0,0';
       }
 
@@ -141,6 +149,8 @@
      */
     open: function () {
       var _this = this;
+      document.body.style.height = "100%";
+      document.body.style.overflow = "hidden";
       _this.wrap.style.display = 'block';
       setTimeout(function () {
         _this.inner.style.transform = 'translate3d(0,0,0)';
@@ -161,6 +171,8 @@
      */
     close: function () {
       var _this = this;
+      document.body.style.height = "auto";
+      document.body.style.overflow = "inherit";
       _this.timer && clearTimeout(_this.timer);
       _this.inner.style.webkitTransform = 'translate3d(' + _this.translate + ')';
       _this.inner.style.transform = 'translate3d(' + _this.translate + ')';
